@@ -39,16 +39,26 @@ const getProductById = async(req, res) => {
 
 const createProduct = async (req, res) => {
     const schema = Joi.object({
-        title: Joi.string().required(),
-        description: Joi.string(),
-        image: Joi.string(),
-        price: Joi.number().required(),
+        title: Joi.string().max(60).required(),
+        description: Joi.string().optional().allow('').max(255),
+        image: Joi.string().optional().allow('').uri({
+            scheme: [
+              'http',
+              'https',
+            ]
+          }),
+        price: Joi.number().integer().min(0).required(),
         seller: Joi.string().required(),
     });
 
     const {error} = schema.validate(req.body);
     if (error) {
-        res.status(400).send(error.details[0].message);
+        const response = {
+            OK: false,
+            statusCode: 400,
+            error: error.details[0].message,
+        }
+        res.status(400).send(response);
         return;
     }
     
@@ -65,7 +75,12 @@ const createProduct = async (req, res) => {
     const response = await products.create(product);
     if (response) {
         product.id = response.insertId;
-        res.status(201).send(product);
+        const resp = {
+            OK: true,
+            statusCode: 201,
+            product: product,
+        }
+        res.status(201).send(resp);
     }
 } catch (err) {
     res.status(500).send("Something went wrong");

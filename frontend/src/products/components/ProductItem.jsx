@@ -4,7 +4,6 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
-  Link,
   Typography,
 } from "@mui/material";
 import { useContext } from "react";
@@ -32,12 +31,12 @@ const deleteClickHandler = () => {
 
 const deleteProductMutation = useMutation({
   mutationFn: deleteProduct,
-  onSuccess: (data) => {
+  onSettled: (data) => {
     console.log(data);
   },
   onError: (error) => {
     console.log(error)
-  }
+  },
 })
 
 
@@ -54,11 +53,11 @@ const deleteProductMutation = useMutation({
   return (
     <Card key={props.id}>
       <CardActionArea>
-        <CardMedia
+        {props.image && <CardMedia
           sx={{ height: 140 }}
           image={props.image}
           title={props.title}
-        />
+        />}
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {props.title}

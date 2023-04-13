@@ -8,8 +8,9 @@ const {getProducts, getProductById, createProduct, getProductsByUser, deleteProd
 router.get('/', getProducts);
 router.get('/:id', getProductById);
 router.get('/users/:id', getProductsByUser);
+
+router.use(verifyToken);
 router.post('/', createProduct);
 router.delete('/:id', deleteProduct)
-router.use(verifyToken);
 
 module.exports = router;

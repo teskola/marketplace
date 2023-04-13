@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import { Alert } from "@mui/material";
+import { useContext, useState } from "react";
 import { useRef } from "react";
 import { useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
@@ -8,6 +9,7 @@ import { AuthContext } from "../../shared/context/auth-context";
 import { createProduct } from "../api/products";
 
 const AddProduct = () => {
+  const [error, setError] = useState(null);
   const titleRef = useRef();
   const imageRef = useRef();
   const descriptionRef = useRef();
@@ -17,7 +19,15 @@ const AddProduct = () => {
   const history = useHistory();
 
   const createProductMutation = useMutation({
-    mutationFn: createProduct,
+    mutationFn: createProduct,    
+    onSuccess: (data) => {
+      if (data.OK) {
+        console.log(data);
+        history.push("/");
+      } else {
+        setError(data.error);
+      }
+    },
   });
 
   const productSubmitHandler = (event) => {
@@ -29,21 +39,23 @@ const AddProduct = () => {
       price: priceRef.current.value,
       token: auth.token,
       seller: auth.userId,
-    });
-    history.push("/");
+    });   
   };
 
   return (
+    
     <form className="product-form" onSubmit={productSubmitHandler}>
-      <Input id="title" ref={titleRef} type="text" label="Title" />
+      {error &&  <Alert severity="error">{error}</Alert>}
+      <Input id="title" ref={titleRef} type="text" label="Title" maxLength={60} required/>
       <Input
         id="description"
         ref={descriptionRef}
         type="text"
         label="Description"
+        maxLength={255}
       />
-      <Input id="image" ref={imageRef} type="text" label="Image" />
-      <Input id="price" ref={priceRef} type="number" label="Price" />
+      <Input id="image" ref={imageRef} type="url" label="Image" />
+      <Input id="price" ref={priceRef} type="number" min={0} label="Price" required/>
       <Button id="add-product">Add product</Button>
     </form>
   );

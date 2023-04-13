@@ -9,40 +9,44 @@ import { loginUser, signUpUser } from '../api/users';
 import { AuthContext } from '../../shared/context/auth-context';
 
 import './Authenticate.css';
+import { Alert } from '@mui/material';
 
 const Authenticate = () => {
   const nameRef = useRef();
   const emailRef = useRef();
   const phoneRef = useRef();
   const passwordRef = useRef();
-
+  const [error, setError] = useState(null);
   const [isLoginMode, setLoginMode] = useState(true);
   const auth = useContext(AuthContext);
 
   const switchModeHandler = () => {
+    setError(null);
     setLoginMode(prevMode => !prevMode);
   }
 
   const signUpUserMutation = useMutation({
     mutationFn: signUpUser,
     onSuccess: (data) => {
-      console.log(data);
-      auth.login(data.id, data.name, data.email, data.phone, data.token);
-    },
-    onError: (error) => {
-      console.log(error)
-    }
+      if (data.OK) {
+        auth.login(data.id, data.name, data.email, data.phone, data.token);
+        console.log(data);
+      } else {
+        setError(data.error);
+      }
+    },    
   });
 
   const loginUserMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
-      console.log(data);
-      auth.login(data.id, data.name, data.email, data.phone, data.token);
+      if (data.OK) {
+        auth.login(data.id, data.name, data.email, data.phone, data.token);
+        console.log(data);
+      } else {
+        setError(data.error);
+      }
     },
-    onError: (error) => {
-      console.log(error)
-    }
   });
 
   const onSubmitHandler = event => {
@@ -66,14 +70,15 @@ const Authenticate = () => {
     <Card className="authentication">
       <h2>{isLoginMode? 'Login': 'Sign Up'}</h2>
       <form onSubmit={onSubmitHandler}>
+        {error && <Alert severity='error'>{error}</Alert>}
         {!isLoginMode && (
           <div>
-          <Input id="name" ref={nameRef} type="text" label="Name" />
-          <Input id="phone" ref={phoneRef} type="tel" label="Phone" /> 
+          <Input id="name" ref={nameRef} type="text" label="Name" minLength={4} maxLength={100} required/>
+          <Input id="phone" ref={phoneRef} type="tel" label="Phone" minLength={7} maxLength={14}/> 
           </div>
         )}
-        <Input id="email" ref={emailRef} type="email" label="Email" />        
-        <Input id="password" ref={passwordRef} type="password" label="Password" /> 
+        <Input id="email" ref={emailRef} type="email" label="Email" maxLength={255} required/>        
+        <Input id="password" ref={passwordRef} type="password" label="Password" required/> 
         <Button type="submit">
           {isLoginMode? 'LOGIN' : 'SIGNUP'}
         </Button>
