@@ -1,6 +1,6 @@
 export const signUpUser = async ({name, email, password, phone}) => {
   const res = await fetch(
-    "http://localhost:5000/api/users/signup",
+    `${import.meta.env.VITE_API_URL}/api/users/signup`,
     {
       method: 'POST',
       headers: {
@@ -21,7 +21,7 @@ export const signUpUser = async ({name, email, password, phone}) => {
 
 export const loginUser = async ({email, password}) => {
   const res = await fetch(
-    "http://localhost:5000/api/users/login",
+    `${import.meta.env.VITE_API_URL}/api/users/login`,
     {
       method: 'POST',
       headers: {
@@ -40,7 +40,7 @@ export const loginUser = async ({email, password}) => {
 
 export const getUser = async (id) => {
   const res = await fetch(
-    "http://localhost:5000/api/users/" + id
+    `${import.meta.env.VITE_API_URL}/api/users/` + id
   );
   return await res.json();
 };
