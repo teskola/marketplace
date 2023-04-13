@@ -48,10 +48,12 @@ Open http://localhost:5173/ in your browser.
 1. User Authentication  :   16 points
 - User registration and login functionality works as expected (8 points)
 - User session management is implemented properly (4 points)
+- User authentication is secure, e.g validations, tokens, using password hashes (4 points)
 
-2. Listing Creation :   9 points
+2. Listing Creation :  11 points
 - Users can create new listings with all required information (6 points)
 - Users can edit or delete their own listings (3 points)
+- Listing creation is secure, e.g validations (2 points)
 
 3. Listing Viewing and Searching  :   18 points
 - Users can view all listings (8 points)
@@ -61,7 +63,7 @@ Open http://localhost:5173/ in your browser.
 5. Documentation :    5 points
 - Installation instructions (5 points)
 
-total: 48 points
+total: 50 points
 
 
 
