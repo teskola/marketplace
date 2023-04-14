@@ -60,7 +60,7 @@ Open http://localhost:5173/ in your browser.
 - User can view only own listings (6 points)
 - Listing lists and details are displayed in a clear and organized manner (4 points)
 
-4. Quality and CI/CD (15 points)
+4. Quality and CI/CD :    3 points
 - Tests for all essential functionality (3 points)  (Backend tests only)
 
 5. Documentation :    5 points
