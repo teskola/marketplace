@@ -116,7 +116,7 @@ const loginUser = async (req, res) => {
       const response = {
         OK: false,
         statusCode: 401,
-        error: 'No user found - Check your credentials',
+        error: 'User not found - Check your credentials',
       }
       return res.status(401).send(response);
     }
@@ -151,11 +151,13 @@ const loginUser = async (req, res) => {
     );
 
     res.status(201).json({
+      OK: true,
+      statusCode: 200,
       id: identifiedUser.id,
       name: identifiedUser.name,
       email: identifiedUser.email,
       phone: identifiedUser.phone,
-      token
+      token: token,
     })
   } catch (err) {
     return res.status(500).send('Something went wrong');
