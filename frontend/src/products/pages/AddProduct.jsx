@@ -38,7 +38,6 @@ const AddProduct = () => {
       description: descriptionRef.current.value,
       price: priceRef.current.value,
       token: auth.token,
-      seller: auth.userId,
     });   
   };
 

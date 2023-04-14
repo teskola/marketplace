@@ -24,10 +24,9 @@ CREATE TABLE IF NOT EXISTS `products` (
   CONSTRAINT `fk_products_users`
     FOREIGN KEY (`seller`)
     REFERENCES `users` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 10
 DEFAULT CHARACTER SET = latin1;
 
 INSERT INTO users (id, name, email, phone, password) VALUES ('test-user-id', 'Test User', 'test@test.test', '050123123', 'hashedPassword');

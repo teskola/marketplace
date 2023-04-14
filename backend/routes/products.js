@@ -11,6 +11,7 @@ router.get('/users/:id', getProductsByUser);
 
 router.use(verifyToken);
 router.post('/', createProduct);
-router.delete('/:id', deleteProduct)
+router.delete('/:id', deleteProduct);
+
 
 module.exports = router;

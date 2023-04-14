@@ -31,6 +31,8 @@ const getProductById = async(req, res) => {
         const response = await products.findProductById(id);
         if (response.length === 1) {
             res.send(response[0]);
+        } else {
+            res.status(404).send("Product not found.");
         }
     } catch (err) {
         res.status(500).send("Something went wrong");
@@ -38,6 +40,7 @@ const getProductById = async(req, res) => {
 }
 
 const createProduct = async (req, res) => {
+
     const schema = Joi.object({
         title: Joi.string().max(60).required(),
         description: Joi.string().optional().allow('').max(255),
@@ -48,7 +51,6 @@ const createProduct = async (req, res) => {
             ]
           }),
         price: Joi.number().integer().min(0).required(),
-        seller: Joi.string().required(),
     });
 
     const {error} = schema.validate(req.body);
@@ -69,7 +71,7 @@ const createProduct = async (req, res) => {
         description: req.body.description,
         image: req.body.image,
         price: req.body.price,
-        seller: req.body.seller,
+        seller: req.userData.userId,
     }
 
     const response = await products.create(product);
@@ -89,8 +91,8 @@ const createProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
     try {
-        const id = parseInt(req.params.id);
-        const response = await products.deleteById(id);
+        const productId = parseInt(req.params.id);
+        const response = await products.deleteById(productId, req.userData.userId);
         if (response) {
             res.status(200).json('Product deleted.');
         }        

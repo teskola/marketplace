@@ -21,7 +21,7 @@ const signUpUser = async (req, res) => {
   const schema = Joi.object({
     name: Joi.string().min(4).max(100).required(),
     email: Joi.string().email().max(255).required(),
-    password: Joi.string().min(4).required(),
+    password: Joi.string().min(6).required(),
     phone: Joi.string().optional().allow('').min(7).max(14),
 });
 
@@ -29,10 +29,10 @@ const {error} = schema.validate(req.body);
 if (error) {
     const response = {
       OK: false,
-      statusCode: 400,
+      statusCode: 403,
       error: error.details[0].message,
     }
-    res.status(400).send(response);
+    res.status(403).send(response);
     return;
 }
   let hashedPassword;
@@ -132,7 +132,7 @@ const loginUser = async (req, res) => {
       const response = {
         OK: false,
         statusCode: 401,
-        error: 'No user found - Check your credentials',
+        error: 'Invalid password - Check your credentials',
       }
       return res.status(401).send(response);
     }

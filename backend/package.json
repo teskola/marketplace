@@ -11,9 +11,13 @@
   },
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "jest --forceExit"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "@jest/globals": "^29.5.0",
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.3"
   }
 }

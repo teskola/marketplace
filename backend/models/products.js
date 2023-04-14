@@ -64,13 +64,13 @@ const products = {
         });
     }),
 
-    deleteById: (id) => new Promise((resolve, reject) => {
-        const deleteQuery = 'DELETE FROM products WHERE id=?;';
+    deleteById: (productId, userId) => new Promise((resolve, reject) => {
+        const deleteQuery = 'DELETE FROM products WHERE id=? AND seller=?;';
         pool.getConnection((err, connection) => {
             if (err) {
                 return reject(err);
             }
-            connection.query(deleteQuery, id, (err, result) => {
+            connection.query(deleteQuery, [productId, userId], (err, result) => {
                 connection.release();
                 if (err) {
                     return reject(err);
