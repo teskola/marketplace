@@ -28,8 +28,3 @@ CREATE TABLE IF NOT EXISTS `products` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
-
-INSERT INTO users (id, name, email, phone, password) VALUES ('test-user-id', 'Test User', 'test@test.com', '050123123', 'hashedPassword');
-
-INSERT INTO products (title, image, description, price, seller) 
-VALUES ('house', 'https://s42814.pcdn.co/wp-content/uploads/2020/09/iStock_185930591-scaled.jpg.optimal.jpg', 'Nice house.', 425000, 'test-user-id');

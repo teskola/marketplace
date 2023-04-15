@@ -5,10 +5,12 @@ import { useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
 import Button from "../../shared/components/button/Button";
 import Input from "../../shared/components/input/Input";
+import LoadingSpinner from "../../shared/components/loadingspinner/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
 import { createProduct } from "../api/products";
 
 const AddProduct = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const titleRef = useRef();
   const imageRef = useRef();
@@ -21,6 +23,7 @@ const AddProduct = () => {
   const createProductMutation = useMutation({
     mutationFn: createProduct,    
     onSuccess: (data) => {
+      setIsLoading(false);
       if (data.OK) {
         console.log(data);
         history.push("/");
@@ -32,6 +35,7 @@ const AddProduct = () => {
 
   const productSubmitHandler = (event) => {
     event.preventDefault();
+    setIsLoading(true);
     createProductMutation.mutate({
       title: titleRef.current.value,
       image: imageRef.current.value,
@@ -40,6 +44,13 @@ const AddProduct = () => {
       token: auth.token,
     });   
   };
+
+  if (isLoading)
+    return (
+      <div className="center">
+        <LoadingSpinner/>
+      </div>
+    )
 
   return (
     

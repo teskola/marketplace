@@ -10,8 +10,10 @@ import { AuthContext } from '../../shared/context/auth-context';
 
 import './Authenticate.css';
 import { Alert } from '@mui/material';
+import LoadingSpinner from '../../shared/components/loadingspinner/LoadingSpinner';
 
 const Authenticate = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const nameRef = useRef();
   const emailRef = useRef();
   const phoneRef = useRef();
@@ -28,6 +30,7 @@ const Authenticate = () => {
   const signUpUserMutation = useMutation({
     mutationFn: signUpUser,
     onSuccess: (data) => {
+      setIsLoading(false);
       if (data.OK) {
         auth.login(data.id, data.name, data.email, data.phone, data.token);
         console.log(data);
@@ -40,6 +43,7 @@ const Authenticate = () => {
   const loginUserMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
+      setIsLoading(false);
       if (data.OK) {
         auth.login(data.id, data.name, data.email, data.phone, data.token);
         console.log(data);
@@ -51,6 +55,7 @@ const Authenticate = () => {
 
   const onSubmitHandler = event => {
     event.preventDefault();
+    setIsLoading(true);
     if(isLoginMode) {
       loginUserMutation.mutate({
         email: emailRef.current.value,
@@ -65,6 +70,13 @@ const Authenticate = () => {
       });
     }
   }
+
+  if (isLoading) 
+    return (
+      <div className='center'>
+        <LoadingSpinner/>
+      </div>
+    )
 
   return (
     <Card className="authentication">
