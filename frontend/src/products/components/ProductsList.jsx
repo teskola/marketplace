@@ -3,7 +3,7 @@ import ProductItem from "./ProductItem";
 
 const ProductsList = (props) => {
 
-  
+
 
   return (
     <div>
@@ -16,7 +16,8 @@ const ProductsList = (props) => {
             title={product.title}
             description={product.description}
             price={product.price}
-            seller={product.seller}
+            seller={product.seller}      
+            update={props.update}      
              />
           </Grid>
         ))}

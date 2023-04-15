@@ -5,8 +5,12 @@ import {getProducts} from "../api/products"
 
 const Products = () => {
 
+  const updateUI = () => {
+    refetch();
+  }
 
-    const {isLoading, error, data} = useQuery(
+
+    const {refetch, isLoading, error, data} = useQuery(
         "productsData", getProducts        
     );
 
@@ -19,7 +23,7 @@ const Products = () => {
     if (error) return "An error has occurred: " + error.message;
     
     return (
-        <ProductsList items={data}/>
+        <ProductsList items={data} update={updateUI}/>
     )
 }
 

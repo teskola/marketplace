@@ -94,7 +94,7 @@ const deleteProduct = async (req, res) => {
         const productId = parseInt(req.params.id);
         const response = await products.deleteById(productId, req.userData.userId);
         if (response) {
-            res.status(200).json('Product deleted.');
+            res.status(200).json(productId);
         }        
     } catch (err) {
         res.status(500).send("Something went wrong");
