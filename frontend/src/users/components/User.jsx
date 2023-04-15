@@ -1,7 +1,9 @@
 import LoadingSpinner from "../../shared/components/loadingspinner/LoadingSpinner";
 import { useUser } from "../../shared/queries/useUser";
+import moment from "moment";
 
 const User = (props) => {
+  moment.locale();
   const { isLoading, error, data } = useUser(props.id);
 
   if (isLoading)
@@ -19,6 +21,10 @@ const User = (props) => {
       <div className="userInfo">
         <table>
           <tbody>
+          <tr>
+            <th>joined:</th>
+            <td>{moment(data.created).format("L")}</td>
+          </tr>
           <tr>
             <th>email:</th>
             <td>{data.email}</td>

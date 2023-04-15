@@ -89,7 +89,6 @@ const ProductItem = (props) => {
         </CardContent>
       </CardActionArea>
       <Box
-        sx={{ m: 2 }}
         display="flex"
         justifyContent="space-between"
         alignItems="end"
@@ -103,7 +102,7 @@ const ProductItem = (props) => {
             Delete
           </Button>
         )}
-        <Box>
+        <Box sx={{ m: 1 }}>
           <Typography variant="h6">{props.price}€</Typography>
           <Typography variant="body2">{moment(props.created).fromNow()}</Typography>
         </Box>

@@ -1,5 +1,5 @@
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import LoadingSpinner from "../../shared/components/loadingspinner/LoadingSpinner";
 import { useProduct } from "../../shared/queries/useProduct";
 import { useUser } from "../../shared/queries/useUser";
@@ -65,7 +65,7 @@ const Product = () => {
               </tr>
               <tr>
                 <th>seller: </th>
-                <td>{isIdle || userLoading ? "Loading..." : user.name}</td>
+                <td>{isIdle || userLoading ? "Loading..." : <Link to={"/users/" + user.id}>{user.name}</Link>}</td>
               </tr>
               <tr>
                 <th>email: </th>

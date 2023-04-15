@@ -36,7 +36,7 @@ const users = {
       if (err) {
         return reject(err);
       }
-      connection.query('SELECT id, name, email, phone FROM users WHERE id=?', id, (err, result) => {
+      connection.query('SELECT id, name, email, phone, created FROM users WHERE id=?', id, (err, result) => {
         connection.release();
         if (err) {
           return reject(err);
