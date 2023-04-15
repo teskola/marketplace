@@ -36,8 +36,7 @@ const deleteProductMutation = useMutation({
   mutationFn: deleteProduct,
   onSettled: (data) => {
     console.log(data);
-    setIsDeleting(false);
-    props.update();
+    props.onDeleteClicked();
   },
   onError: (error) => {
     setIsDeleting(false);
@@ -48,7 +47,7 @@ const deleteProductMutation = useMutation({
 if (isDeleting)
   return (
     <div className="center">
-      <LoadingSpinner/>
+      <p>Deleted.</p>
     </div>
   )
 
