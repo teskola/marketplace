@@ -14,6 +14,7 @@ import { useLocation } from "react-router-dom";
 import Button from "../../shared/components/button/Button";
 import LoadingSpinner from "../../shared/components/loadingspinner/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
+import { useUser } from "../../shared/queries/useUser";
 import { getUser } from "../../users/api/users";
 import { deleteProduct } from "../api/products";
 import Seller from "./Seller";
@@ -22,9 +23,7 @@ const ProductItem = (props) => {
   const location = useLocation();
   const [isDeleting, setIsDeleting] = useState(false);
   const auth = useContext(AuthContext);
-  const { isLoading, error, data } = useQuery(["userData", props.seller], () =>
-    getUser(props.seller)
-  );
+  const { isLoading, error, data } = useUser(props.seller);
 
 
 const deleteClickHandler = () => {

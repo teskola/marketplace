@@ -1,12 +1,11 @@
 import { useQuery } from "react-query";
 import LoadingSpinner from "../../shared/components/loadingspinner/LoadingSpinner";
+import { useUser } from "../../shared/queries/useUser";
 import { getUser } from "../api/users";
 import "./User.css";
 
 const User = (props) => {
-  const { isLoading, error, data } = useQuery(["userData", props.id], () =>
-    getUser(props.id)
-  );
+  const { isLoading, error, data } = useUser(props.id);
 
   if (isLoading)
     return (
@@ -16,12 +15,13 @@ const User = (props) => {
     );
 
   if (error) return "An error has occurred: " + error.message;
-
+   
   return (
     <div>
       <h2>{data.name}</h2>
       <div className="userInfo">
         <table>
+          <tbody>
           <tr>
             <th>email:</th>
             <td>{data.email}</td>
@@ -30,6 +30,7 @@ const User = (props) => {
             <th>phone:</th>
             <td>{data.phone ? data.phone : "N/A"}</td>
           </tr>
+          </tbody>
         </table>
       </div>
     </div>
