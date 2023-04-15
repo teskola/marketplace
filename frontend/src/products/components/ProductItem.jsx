@@ -58,7 +58,7 @@ if (isDeleting)
 
   let seller = <div></div>;
 
-  if (location.pathname === "/") {
+  if (data && location.pathname === "/") {
     seller = 
     <CardActions>
     <Seller id={props.seller} name={data.name} email={data.email} phone={data.phone}/>
