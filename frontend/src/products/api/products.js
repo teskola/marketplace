@@ -12,6 +12,13 @@ export const getProductsByUser = async (id) => {
   return await res.json();
 }
 
+export const getProductById = async (id) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/products/` + id
+  );
+  return await res.json();
+}
+
 export const createProduct = async ({title, description, image, price, seller, token}) => {
   const res = await fetch(
     `${import.meta.env.VITE_API_URL}/api/products`, {

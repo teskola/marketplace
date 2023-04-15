@@ -22,7 +22,8 @@ const ProductsList = (props) => {
             description={product.description}
             price={product.price}
             seller={product.seller}      
-            onDeleteClicked={props.update}      
+            onDeleteClicked={props.update}   
+            created={product.created}   
              />
           </Grid>
         ))}

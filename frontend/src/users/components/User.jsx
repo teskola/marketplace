@@ -1,8 +1,5 @@
-import { useQuery } from "react-query";
 import LoadingSpinner from "../../shared/components/loadingspinner/LoadingSpinner";
 import { useUser } from "../../shared/queries/useUser";
-import { getUser } from "../api/users";
-import "./User.css";
 
 const User = (props) => {
   const { isLoading, error, data } = useUser(props.id);
