@@ -1,14 +1,11 @@
-import { useQuery } from "react-query";
 import LoadingSpinner from "../../shared/components/loadingspinner/LoadingSpinner";
 import ProductsList from "../components/ProductsList"
-import {getProducts} from "../api/products"
+import { useProduct } from "../../shared/queries/useProduct";
 
 const Products = () => {
   
     
-    const {refetch, isLoading, error, data} = useQuery(
-        "productsData", getProducts        
-    );
+    const {refetch, isLoading, error, data} = useProduct();
 
     if (isLoading) return (
         <div className="center">

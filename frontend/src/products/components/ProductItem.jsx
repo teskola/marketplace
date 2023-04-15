@@ -9,13 +9,12 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useContext } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
 import { useLocation } from "react-router-dom";
 import Button from "../../shared/components/button/Button";
 import LoadingSpinner from "../../shared/components/loadingspinner/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
 import { useUser } from "../../shared/queries/useUser";
-import { getUser } from "../../users/api/users";
 import { deleteProduct } from "../api/products";
 import Seller from "./Seller";
 

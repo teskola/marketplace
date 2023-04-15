@@ -1,14 +1,12 @@
-import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import { getProductsByUser } from "../../products/api/products";
 import ProductsList from "../../products/components/ProductsList";
 import LoadingSpinner from "../../shared/components/loadingspinner/LoadingSpinner";
+import { useProduct } from "../../shared/queries/useProduct";
 import User from "../components/User";
 
 const Profile = () => {
     const {handle} = useParams();    
-    const {refetch, isLoading, error, data} = useQuery(["userProducts", handle], () =>
-    getProductsByUser(handle));
+    const {refetch, isLoading, error, data} = useProduct(handle);
 
     if (isLoading)
         return (
