@@ -11,15 +11,15 @@ const NavLinks = props => {
   return <ul className="nav-links">
     <li>
         <NavLink to="/" exact>BUY</NavLink>
-    </li>
-    {auth.isLoggedIn && (
-      <li>
-        <NavLink to="/users" exact>MY PRODUCTS</NavLink>
-      </li>
-    )}
+    </li>   
     {auth.isLoggedIn && (
       <li>
         <NavLink to="/products/new">SELL</NavLink>
+      </li>
+    )}
+     {auth.isLoggedIn && (
+      <li>
+        <NavLink to={"users/" + auth.userId}>PROFILE</NavLink>
       </li>
     )}
     {!auth.isLoggedIn && (

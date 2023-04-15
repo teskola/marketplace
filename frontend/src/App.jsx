@@ -78,9 +78,9 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <Products />
-        </Route>
-        <Route path="/users" exact>
-          <Profile id={user.uid} name={user.name}/>
+        </Route>        
+        <Route path="/users/:handle">
+          <Profile/>
         </Route>
         <Route path="/products/new" exact>
           <AddProduct />

@@ -3,6 +3,11 @@ import ProductItem from "./ProductItem";
 
 const ProductsList = (props) => {
 
+  if (props.items.length === 0) {
+    return (
+      <p>No products</p>
+    )
+  }
 
 
   return (

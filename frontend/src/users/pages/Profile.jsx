@@ -1,11 +1,14 @@
 import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
 import { getProductsByUser } from "../../products/api/products";
 import ProductsList from "../../products/components/ProductsList";
 import LoadingSpinner from "../../shared/components/loadingspinner/LoadingSpinner";
+import User from "../components/User";
 
-const Profile = (props) => {
-    const {isLoading, error, data} = useQuery(["userProducts", props.id], () =>
-    getProductsByUser(props.id));
+const Profile = () => {
+    const {handle} = useParams();    
+    const {refetch, isLoading, error, data} = useQuery(["userProducts", handle], () =>
+    getProductsByUser(handle));
 
     if (isLoading)
         return (
@@ -17,8 +20,9 @@ const Profile = (props) => {
 
     return(
         <div>
-            <h2>{props.name}</h2>
-            <ProductsList items={data}/>
+            <User id={handle}/>
+            <h3>Products</h3>
+            <ProductsList items={data} update={refetch}/>
         </div>
     )
 
