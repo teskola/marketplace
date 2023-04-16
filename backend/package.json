@@ -12,7 +12,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "test": "jest --watchAll --forceExit"
+    "test": "jest --forceExit"
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",
