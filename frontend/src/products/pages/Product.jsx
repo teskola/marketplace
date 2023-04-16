@@ -6,7 +6,6 @@ import { useUser } from "../../shared/queries/useUser";
 import moment from "moment";
 
 const Product = () => {
-  moment.locale();
   const { handle } = useParams();
   const {
     isLoading: productIsLoading,
@@ -65,7 +64,13 @@ const Product = () => {
               </tr>
               <tr>
                 <th>seller: </th>
-                <td>{isIdle || userLoading ? "Loading..." : <Link to={"/users/" + user.id}>{user.name}</Link>}</td>
+                <td>
+                  {isIdle || userLoading ? (
+                    "Loading..."
+                  ) : (
+                    <Link to={"/users/" + user.id}>{user.name}</Link>
+                  )}
+                </td>
               </tr>
               <tr>
                 <th>email: </th>

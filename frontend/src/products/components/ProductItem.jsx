@@ -17,13 +17,18 @@ import { AuthContext } from "../../shared/context/auth-context";
 import { useUser } from "../../shared/queries/useUser";
 import { deleteProduct } from "../api/products";
 import Seller from "./Seller";
-import moment from "moment";
+import moment from 'moment';
+import { useEffect } from "react";
 
 const ProductItem = (props) => {
   const location = useLocation();
   const [isDeleting, setIsDeleting] = useState(false);
   const auth = useContext(AuthContext);
   const { isLoading, error, data } = useUser(props.seller);
+
+  useEffect(() => {
+    console.log(props.created)
+  },[props.created])
 
   const deleteClickHandler = () => {
     setIsDeleting(true);
@@ -58,14 +63,12 @@ const ProductItem = (props) => {
 
   if (!!data && location.pathname === "/") {
     seller = (
-      <CardActions>
-        <Seller
-          id={props.seller}
-          name={data.name}
-          email={data.email}
-          phone={data.phone}
-        />
-      </CardActions>
+      <Seller
+        id={props.seller}
+        name={data.name}
+        email={data.email}
+        phone={data.phone}
+      />
     );
   }
 
@@ -89,6 +92,7 @@ const ProductItem = (props) => {
         </CardContent>
       </CardActionArea>
       <Box
+        sx={{ m: 1 }}
         display="flex"
         justifyContent="space-between"
         alignItems="end"
@@ -102,9 +106,11 @@ const ProductItem = (props) => {
             Delete
           </Button>
         )}
-        <Box sx={{ m: 1 }}>
+        <Box>
           <Typography variant="h6">{props.price}€</Typography>
-          <Typography variant="body2">{moment(props.created).fromNow()}</Typography>
+          <Typography variant="body2">
+            {moment(props.created).fromNow()}
+          </Typography>
         </Box>
       </Box>
     </Card>

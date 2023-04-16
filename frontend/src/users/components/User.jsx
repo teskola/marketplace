@@ -3,7 +3,6 @@ import { useUser } from "../../shared/queries/useUser";
 import moment from "moment";
 
 const User = (props) => {
-  moment.locale();
   const { isLoading, error, data } = useUser(props.id);
 
   if (isLoading)
@@ -14,25 +13,25 @@ const User = (props) => {
     );
 
   if (error) return "An error has occurred: " + error.message;
-   
+
   return (
     <div>
       <h2>{data.name}</h2>
       <div className="userInfo">
         <table>
           <tbody>
-          <tr>
-            <th>joined:</th>
-            <td>{moment(data.created).format("L")}</td>
-          </tr>
-          <tr>
-            <th>email:</th>
-            <td>{data.email}</td>
-          </tr>
-          <tr>
-            <th>phone:</th>
-            <td>{data.phone ? data.phone : "N/A"}</td>
-          </tr>
+            <tr>
+              <th>joined:</th>
+              <td>{moment(data.created).format("L")}</td>
+            </tr>
+            <tr>
+              <th>email:</th>
+              <td>{data.email}</td>
+            </tr>
+            <tr>
+              <th>phone:</th>
+              <td>{data.phone ? data.phone : "N/A"}</td>
+            </tr>
           </tbody>
         </table>
       </div>
