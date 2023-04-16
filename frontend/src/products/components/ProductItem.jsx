@@ -18,17 +18,12 @@ import { useUser } from "../../shared/queries/useUser";
 import { deleteProduct } from "../api/products";
 import Seller from "./Seller";
 import moment from 'moment';
-import { useEffect } from "react";
 
 const ProductItem = (props) => {
   const location = useLocation();
   const [isDeleting, setIsDeleting] = useState(false);
   const auth = useContext(AuthContext);
-  const { isLoading, error, data } = useUser(props.seller);
-
-  useEffect(() => {
-    console.log(props.created)
-  },[props.created])
+  const { isLoading, error, data } = useUser(props.seller); 
 
   const deleteClickHandler = () => {
     setIsDeleting(true);

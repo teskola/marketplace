@@ -3,7 +3,7 @@ require('dotenv').config();
 
 
 const pool = mysql.createPool({
-  timezone: 'UTC',
+  timezone: '+00:00',
   dateStrings: [
     'DATE',
     'DATETIME',
