@@ -2,7 +2,6 @@ import {
   Box,
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
   CardMedia,
   Typography,
@@ -68,7 +67,7 @@ const ProductItem = (props) => {
   }
 
   return (
-    <Card>
+    <Card style={{width: "100%", display: "flex", justifyContent: 'space-between', flexDirection: "column"}}>
       <CardActionArea component={Link} to={"/products/id/" + props.id}>
         {!!props.image && (
           <CardMedia

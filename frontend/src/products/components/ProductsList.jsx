@@ -12,9 +12,9 @@ const ProductsList = (props) => {
 
   return (
     <div>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} alignItems="stretch">
         {props.items.map((product) => (
-          <Grid key={product.id} item xs={12} md={6} lg={4}>
+          <Grid key={product.id} item style={{display: 'flex'}} xs={12} md={6} lg={4}>
             <ProductItem 
             id={product.id}
             image={product.image}
