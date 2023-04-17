@@ -14,7 +14,7 @@ const ProductsList = (props) => {
     <div>
       <Grid container spacing={2}>
         {props.items.map((product) => (
-          <Grid key={product.id} item xs={4}>
+          <Grid key={product.id} item xs={12} md={6} lg={4}>
             <ProductItem 
             id={product.id}
             image={product.image}
