@@ -22,7 +22,7 @@ const User = (props) => {
           <tbody>
             <tr>
               <th>joined:</th>
-              <td>{moment(data.created).format("L")}</td>
+              <td>{moment(data.created.slice(0, -1)).format("L")}</td>
             </tr>
             <tr>
               <th>email:</th>

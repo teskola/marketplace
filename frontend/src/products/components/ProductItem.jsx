@@ -6,7 +6,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { useMutation } from "react-query";
 import { useLocation, Link } from "react-router-dom";
