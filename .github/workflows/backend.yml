@@ -44,7 +44,7 @@ jobs:
           MYSQL_PORT: 3306
           JWT_KEY: ${{ secrets.JWT_KEY }}
         working-directory: ./backend
-        run: npm run test
+        run: npm run test:ci
   deploy:
     needs: test
     runs-on: ubuntu-latest
