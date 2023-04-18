@@ -45,5 +45,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger the deploy on Render
-        run: curl -X GET ${{ sercrets.FRONTEND_DEPLOY_HOOK}}
+        run: curl -X GET ${{ secrets.FRONTEND_DEPLOY_HOOK }}
         
