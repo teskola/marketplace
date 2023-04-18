@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -name: Fetch code
-        uses: actions/chekout@v3
+        uses: actions/checkout@v3
       -name: Install Node
         uses: actions/setup-node@v3
         with:
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -name: Fetch code
-        uses: actions/chekout@v3
+        uses: actions/checkout@v3
       -name: Install Node
         uses: actions/setup-node@v3
         with:
@@ -38,4 +38,4 @@ jobs:
       -name: Build Production Frontend
         working-directory: ./frontend
         run: npm run build
-        
+
