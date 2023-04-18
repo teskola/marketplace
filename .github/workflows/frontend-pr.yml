@@ -1,0 +1,41 @@
+name: Frontend PR
+on:
+  pull_request:
+  branches:
+    -main
+  paths:
+    -frontend/**
+jobs:
+  test:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      -name: Fetch code
+        uses: actions/chekout@v3
+      -name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      -name: Install Node Modules
+        working-directory: ./frontend
+        run: npm install
+      -name: Run Tests
+        working-directory: ./frontend
+        run: npm run test:ci
+  build:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      -name: Fetch code
+        uses: actions/chekout@v3
+      -name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      -name: Install Node Modules
+        working-directory: ./frontend
+        run: npm install
+      -name: Build Production Frontend
+        working-directory: ./frontend
+        run: npm run build
+        

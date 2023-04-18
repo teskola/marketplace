@@ -9,7 +9,7 @@ const Products = () => {
 
     if (isLoading) return (
         <div className="center">
-          <LoadingSpinner />;
+          <LoadingSpinner />
         </div>
       );
     
