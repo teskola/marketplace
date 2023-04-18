@@ -1,10 +1,10 @@
-name: Frontend PR
+name: Frontend
 on:
-  pull_request:
-  branches:
-    -main
-  paths:
-    -frontend/**
+  push:
+    branches:
+      - main
+    paths:
+      - frontend/**
 jobs:
   test:
     timeout-minutes: 5
