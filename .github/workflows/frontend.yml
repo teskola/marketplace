@@ -10,32 +10,32 @@ jobs:
     timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
-      -name: Fetch code
+      - name: Fetch code
         uses: actions/checkout@v3
-      -name: Install Node
+      - name: Install Node
         uses: actions/setup-node@v3
         with:
           node-version: "18"
-      -name: Install Node Modules
+      - name: Install Node Modules
         working-directory: ./frontend
         run: npm install
-      -name: Run Tests
+      - name: Run Tests
         working-directory: ./frontend
         run: npm run test:ci
   build:
     timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
-      -name: Fetch code
+      - name: Fetch code
         uses: actions/checkout@v3
-      -name: Install Node
+      - name: Install Node
         uses: actions/setup-node@v3
         with:
           node-version: "18"
-      -name: Install Node Modules
+      - name: Install Node Modules
         working-directory: ./frontend
         run: npm install
-      -name: Build Production Frontend
+      - name: Build Production Frontend
         working-directory: ./frontend
         run: npm run build
   deploy:
@@ -43,6 +43,6 @@ jobs:
     timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
-      -name: Trigger the deploy on Render
+      - name: Trigger the deploy on Render
         run: curl -X GET ${{ sercrets.FRONTEND_DEPLOY_HOOK}}
         
