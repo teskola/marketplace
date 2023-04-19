@@ -71,7 +71,10 @@ Open http://localhost:5173/ in your browser.
 5. Documentation :    5 points
 - Installation instructions (5 points)
 
-total: 80 points
+6. Bonus:   5 poinst
+- Site is responsive, works on different screen sizes (5 points)
+
+total: 85 points
 
 
 
