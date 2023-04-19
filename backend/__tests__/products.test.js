@@ -26,7 +26,17 @@ describe("GET products endpoint", () => {
       expect.arrayContaining([
         expect.objectContaining({
           id: 1,
-          title: "house",
+          title: "swan rest",
+          seller: "test-user-id",
+        }),
+        expect.objectContaining({
+          id: 2,
+          title: "extended spider rest",
+          seller: "test-user-id",
+        }),
+        expect.objectContaining({
+          id: 3,
+          title: "rest",
           seller: "test-user-id",
         }),
       ])
@@ -47,7 +57,10 @@ describe("GET products endpoint", () => {
     expect(response.body).toEqual(
       expect.objectContaining({
         id: 1,
-        title: "house",
+        title: "swan rest",
+        image: "https://cdn.shopify.com/s/files/1/0502/5307/0504/products/swanneckplusshaft_grande.jpg?v=1612899650",
+        description: "Good old swan rest.",
+        price: 150,
         seller: "test-user-id",
       })
     );
@@ -72,7 +85,17 @@ describe("GET products endpoint", () => {
       expect.arrayContaining([
         expect.objectContaining({
           id: 1,
-          title: "house",
+          title: "swan rest",
+          seller: "test-user-id",
+        }),
+        expect.objectContaining({
+          id: 2,
+          title: "extended spider rest",
+          seller: "test-user-id",
+        }),
+        expect.objectContaining({
+          id: 3,
+          title: "rest",
           seller: "test-user-id",
         }),
       ])
@@ -81,15 +104,15 @@ describe("GET products endpoint", () => {
 
   test("should find product by title", async () => {
     const response = await supertest(app)
-      .get("/api/products/search/?text=house")
+      .get("/api/products/search/?text=extended spider rest")
       .set("Accept", "application/json");
     expect(response.status).toEqual(200);
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.body).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: 1,
-          title: "house",
+          id: 2,
+          title: "extended spider rest",
           seller: "test-user-id",
         }),
       ])
