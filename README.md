@@ -50,23 +50,28 @@ Open http://localhost:5173/ in your browser.
 - User session management is implemented properly (4 points)
 - User authentication is secure, e.g validations, tokens, using password hashes (4 points)
 
-2. Listing Creation :  11 points
+2. Listing Creation :  20 points
 - Users can create new listings with all required information (6 points)
-- Users can edit or delete their own listings (3 points)
-- Listing creation is secure, e.g validations (2 points)
+- Proper error handling for missing or incorrect listing information (4 points)
+- Users can edit or delete their own listings (6 points)
+- Listing creation is secure, e.g validations (4 points)
 
-3. Listing Viewing and Searching  :   18 points
+3. Listing Viewing and Searching  :   28 points
 - Users can view all listings (8 points)
 - User can view only own listings (6 points)
+- Users can search for listings by keyword, category, and other filters (4 points)  // keyword, price only
 - Listing lists and details are displayed in a clear and organized manner (4 points)
+- Proper error handling for missing or invalid listings (3 points)
+- Listing viewing and searching is secure e.g validation, authorization (3 points)
 
-4. Quality and CI/CD :    3 points
-- Tests for all essential functionality (3 points)  (Backend tests only)
+4. Quality and CI/CD :    11 points
+- Tests for all essential functionality (4 points) // Backend tests only
+- CI/CD workflows are in place (7 points)
 
 5. Documentation :    5 points
 - Installation instructions (5 points)
 
-total: 53 points
+total: 80 points
 
 
 
