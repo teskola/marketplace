@@ -64,6 +64,27 @@ const products = {
         });
     }),
 
+    update: (product, userId) => new Promise((resolve, reject) => {
+        pool.getConnection((err, connection) => {
+            if (err) {
+                return reject(err);
+            }
+            const query = 'UPDATE products ' + 
+            'SET title = COALESCE(?, title),' + 
+            'description = COALESCE(?, description),' +
+            'image = COALESCE(?, image),' +
+            'price = COALESCE(?, price) ' +
+            'WHERE id=? AND seller=?;'
+            connection.query(query, [product.title, product.description, product.image, product.price, product.id, userId], (err, result) => {
+                connection.release();
+                if (err) {
+                    return reject(err);
+                }
+                resolve(Object.values(JSON.parse(JSON.stringify(result))));
+            })
+        })  
+    }),
+
     deleteById: (productId, userId) => new Promise((resolve, reject) => {
         const deleteQuery = 'DELETE FROM products WHERE id=? AND seller=?;';
         pool.getConnection((err, connection) => {

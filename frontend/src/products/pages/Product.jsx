@@ -4,10 +4,15 @@ import LoadingSpinner from "../../shared/components/loadingspinner/LoadingSpinne
 import { useProduct } from "../../shared/queries/useProduct";
 import { useUser } from "../../shared/queries/useUser";
 import moment from "moment";
+import { useContext } from "react";
+import { AuthContext } from "../../shared/context/auth-context";
+import EditItem from "../components/EditItem";
 
 const Product = () => {
+  const auth = useContext(AuthContext);
   const { handle } = useParams();
   const {
+    refetch,
     isLoading: productIsLoading,
     error,
     data: product,
@@ -55,7 +60,7 @@ const Product = () => {
               {product.updated !== product.created ? (
                 <tr>
                   <th>edited:</th>
-                  <td>{product.updated}</td>
+                  <td>{moment(product.updated.slice(0, -1)).format("LLL")}</td>
                 </tr>
               ) : null}
               <tr>
@@ -87,7 +92,8 @@ const Product = () => {
             </tbody>
           </table>
         </Box>
-      </CardContent>
+        {auth.userId === userId && <EditItem title={product.title} description={product.description} image={product.image} price={product.price} id={handle} onEdit={refetch}/>}
+      </CardContent>       
     </Card>
   );
 };

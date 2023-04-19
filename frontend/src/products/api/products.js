@@ -7,19 +7,19 @@ export const getProducts = async () => {
 
 export const getProductsByUser = async (id) => {
   const res = await fetch(
-    `${import.meta.env.VITE_API_URL}/api/products/users/` + id
+    `${import.meta.env.VITE_API_URL}/api/products/users/${id}`
   );
   return await res.json();
 }
 
 export const getProductById = async (id) => {
   const res = await fetch(
-    `${import.meta.env.VITE_API_URL}/api/products/` + id
+    `${import.meta.env.VITE_API_URL}/api/products/${id}`
   );
   return await res.json();
 }
 
-export const createProduct = async ({title, description, image, price, seller, token}) => {
+export const createProduct = async ({title, description, image, price, token}) => {
   const res = await fetch(
     `${import.meta.env.VITE_API_URL}/api/products`, {
       method: 'POST',
@@ -33,7 +33,26 @@ export const createProduct = async ({title, description, image, price, seller, t
         description,
         image,
         price,
-        seller,
+      })
+    }
+  );
+  return await res.json();
+}
+
+export const editProduct = async ({id, title, description, image, price, token}) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/products/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        Authorization: 'Bearer ' + token
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        image,
+        price,
       })
     }
   );
@@ -42,7 +61,7 @@ export const createProduct = async ({title, description, image, price, seller, t
 
 export const deleteProduct = async ({id, token}) => {
   const res = await fetch(
-    `${import.meta.env.VITE_API_URL}/api/products/` + id,
+    `${import.meta.env.VITE_API_URL}/api/products/${id}`,
     {
       method: 'DELETE',
       headers: {

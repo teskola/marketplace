@@ -13,7 +13,9 @@ const Input = forwardRef((props,ref) => {
       maxLength={props.maxLength}
       minLength={props.minLength}
       required={props.required}
-      min={props.min}/>
+      min={props.min}
+      defaultValue={props.defaultValue}
+      onChange={props.onChange}/>
     </div>
   )
 });

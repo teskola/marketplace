@@ -6,7 +6,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useContext } from "react";
 import { useMutation } from "react-query";
 import { useLocation, Link } from "react-router-dom";
@@ -64,11 +64,10 @@ const ProductItem = (props) => {
         phone={data.phone}
       />
     );
-  }
-
+  }  
   return (
     <Card style={{width: "100%", display: "flex", justifyContent: 'space-between', flexDirection: "column"}}>
-      <CardActionArea component={Link} to={"/products/id/" + props.id}>
+      <CardActionArea component={Link} to={`/products/id/${props.id}`}>
         {!!props.image && (
           <CardMedia
             sx={{ height: 140 }}
@@ -93,12 +92,12 @@ const ProductItem = (props) => {
       >
         {isLoading ? (
           <LoadingSpinner />
-        ) : auth.userId !== props.seller ? (
-          seller
-        ) : (
+        ) : (location.pathname ===`/users/${auth.userId}`) ? (
           <Button danger onClick={deleteClickHandler}>
             Delete
           </Button>
+        ) : (
+          seller
         )}
         <Box>
           <Typography variant="h6">{props.price}€</Typography>

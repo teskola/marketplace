@@ -81,6 +81,8 @@ describe("GET products endpoint", () => {
 });
 
 describe("POST product without credentials", () => {
+
+
   test("should not create product without credentials", async () => {
     const product = {
       title: "test",
@@ -148,7 +150,7 @@ describe("POST product with credentials", () => {
     expect(response.body.product.title).toEqual("The Communist manifesto");
     expect(response.body.product.price).toEqual(25);
   });
-
+  
   test("no title", async () => {
     const product = {
       image:
@@ -217,7 +219,7 @@ describe("POST product with credentials", () => {
   });
 });
 
-describe("DELETE product", () => {
+describe("UPDATE and DELETE product", () => {
   const loggedInUser = {
     id: "",
     email: "",
@@ -298,6 +300,58 @@ describe("DELETE product", () => {
       expect(response.status).toEqual(200);
     
   });
+
+/*   test("update price only", async () => {
+    const data = {
+      price: 10,
+    }
+    await supertest(app)
+    .put("/api/products/" + productId)
+    .set("Accept", "application/json")
+    .set("Authorization", "Bearer " + loggedInUser.token)
+    .send(data);
+    
+    const response = await supertest(app)
+    .get("/api/products/" + productId)
+    .set("Accept", "application/json");
+    expect(response.body).toEqual(
+      expect.objectContaining({        
+        title: "Sgt. Peppers Lonely Hearts Club Band",
+        image: "https://i.discogs.com/JNbAKGFjLM_LrPZVRlNtWlYTgpUwXTZcqbC5okuCP-M/rs:fit/g:sm/q:90/h:590/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQ5OTQ5/Ny0xNDU2MDQ3Mzgz/LTk0ODkuanBlZw.jpeg",
+        description:
+        "Sgt. Pepper's Lonely Hearts Club Band is the eighth studio album by the English rock band the Beatles.",
+        price: 10,
+      })
+    );
+
+  }) */
+
+  test("update all fields", async () => {
+    const data = {
+      title: "Sgt. Peppers",
+      description: "English rock",
+      price: 75,
+      image: "https://classicalbumsundays.com/wp-content/uploads/2012/05/Beatles-USE_20092h.jpg",
+    }
+    await supertest(app)
+    .put("/api/products/" + productId)
+    .set("Accept", "application/json")
+    .set("Authorization", "Bearer " + loggedInUser.token)
+    .send(data);
+
+    const response = await supertest(app)
+    .get("/api/products/" + productId)
+    .set("Accept", "application/json");
+    expect(response.body).toEqual(
+      expect.objectContaining({        
+        title: "Sgt. Peppers",
+        image: "https://classicalbumsundays.com/wp-content/uploads/2012/05/Beatles-USE_20092h.jpg",
+        description:
+        "English rock",
+        price: 75,
+      }))
+   
+  })
 
   test("should be able to delete own products", async () => {
     await supertest(app)

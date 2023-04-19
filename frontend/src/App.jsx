@@ -101,12 +101,12 @@ function App() {
             <Profile />
           </Route>
           <Route path="/products/id/:handle" exact>
-            <Product/>
+            <Product />
           </Route>
           {!!token && (
-            <Route path="/products/new" exact>
-              <AddProduct />
-            </Route>
+              <Route path="/products/new" exact>
+                <AddProduct/>
+              </Route>
           )}
           {!token && (
             <Route path="/auth">
