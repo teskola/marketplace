@@ -55,12 +55,12 @@ const Product = () => {
             <tbody>
               <tr>
                 <th>added:</th>
-                <td>{moment(product.created.slice(0, -1)).format("LLL")}</td>
+                <td>{moment(product.created).format("LLL")}</td>
               </tr>
               {product.updated !== product.created ? (
                 <tr>
                   <th>edited:</th>
-                  <td>{moment(product.updated.slice(0, -1)).format("LLL")}</td>
+                  <td>{moment(product.updated).format("LLL")}</td>
                 </tr>
               ) : null}
               <tr>

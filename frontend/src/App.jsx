@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "react-query";
 import Authenticate from "./users/pages/Authenticate";
 import MainNavigation from "./shared/components/navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
@@ -95,14 +94,17 @@ function App() {
       <main>
         <Switch>
           <Route path="/" exact>
-            <Products />
+            <Products clear/>
+          </Route>
+          <Route path="/search" exact>
+            <Products/>
           </Route>
           <Route path="/users/:handle">
             <Profile />
           </Route>
           <Route path="/products/id/:handle" exact>
             <Product />
-          </Route>
+          </Route>          
           {!!token && (
               <Route path="/products/new" exact>
                 <AddProduct/>

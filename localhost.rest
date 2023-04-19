@@ -7,3 +7,10 @@ GET http://localhost:5000/api/users/test-user-id
 GET http://localhost:5000/api/products
 
 ###
+GET http://localhost:5000/api/products/search/?text=test&min=10&max=50
+
+###
+GET http://localhost:5000/api/products/search/?text=test&max=50
+
+###
+GET http://localhost:5000/api/products/search/?text=&max=50

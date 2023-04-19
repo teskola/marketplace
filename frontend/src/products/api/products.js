@@ -5,6 +5,13 @@ export const getProducts = async () => {
     return await res.json();
   };
 
+export const getPriceRange = async () => {
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/products/range`
+  );
+  return await res.json();
+}
+
 export const getProductsByUser = async (id) => {
   const res = await fetch(
     `${import.meta.env.VITE_API_URL}/api/products/users/${id}`
@@ -55,6 +62,21 @@ export const editProduct = async ({id, title, description, image, price, token})
         price,
       })
     }
+  );
+  return await res.json();
+}
+
+export const searchProducts = async (search) => {    
+  let query = "";
+  if (search.text)
+    query += search.text;
+  if (search.range && search.range[0])
+    query += `&min=${search.range[0]}`;
+  if (search.range && search.range[1])
+    query += `&max=${search.range[1]}`;
+  console.log(query);
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/products/search/?text=${query}`
   );
   return await res.json();
 }

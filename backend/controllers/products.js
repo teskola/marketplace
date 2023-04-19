@@ -13,7 +13,7 @@ const schema = Joi.object({
   price: Joi.number().integer().min(0).required(),
 });
 
-const getProducts = async (req, res) => {
+const getProducts = async (req, res) => {  
   try {
     const response = await products.findAll();
     if (response) {
@@ -24,6 +24,32 @@ const getProducts = async (req, res) => {
     res.status(500).send("Something went wrong");
   }
 };
+
+const getPriceRange = async (req, res) => {
+  try {
+    const response = await products.getPriceRange();
+    if (response) {
+      res.send(response);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Something went wrong");
+  }
+}
+
+const searchProducts = async (req, res) => {
+  try {
+    const minValue = req.query.min ? parseInt(req.query.min) : null;
+    const maxValue = req.query.max ? parseInt(req.query.max) : null;
+    const response = await products.search(req.query.text, minValue, maxValue);
+    if (response) {
+      res.send(response);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
+}
 
 const getProductsByUser = async (req, res) => {
   try {
@@ -137,6 +163,8 @@ const deleteProduct = async (req, res) => {
 
 module.exports = {
   getProducts,
+  searchProducts,
+  getPriceRange,
   getProductById,
   createProduct,
   getProductsByUser,

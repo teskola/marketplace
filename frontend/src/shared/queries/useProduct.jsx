@@ -1,9 +1,12 @@
 import { useQuery } from "react-query"
-import { getProductById, getProducts, getProductsByUser } from "../../products/api/products"
+import { getProductById, getProducts, getProductsByUser, searchProducts } from "../../products/api/products"
 
-export const useProduct = (id) => {
-    if (!id)
-        return useQuery(["allProducts"], getProducts)
+export const useProduct = (id, search) => {
+    if (!id) {
+        if (!search)        
+            return useQuery(["allProducts"], getProducts);
+        return useQuery(["searchProducts", search], () => searchProducts(search));
+    }
     const isString = isNaN(id);
     if (isString)
         return useQuery(["userProducts", id], () => getProductsByUser(id));

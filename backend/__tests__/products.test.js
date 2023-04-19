@@ -59,7 +59,7 @@ describe("GET products endpoint", () => {
       .set("Accept", "application/json");
 
     expect(response.status).toEqual(404);
-  })
+  });
 
   test("should return array of products by user", async () => {
     const response = await supertest(app)
@@ -78,11 +78,26 @@ describe("GET products endpoint", () => {
       ])
     );
   });
+
+  test("should find product by title", async () => {
+    const response = await supertest(app)
+      .get("/api/products/search/?text=house")
+      .set("Accept", "application/json");
+    expect(response.status).toEqual(200);
+    expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.body).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          id: 1,
+          title: "house",
+          seller: "test-user-id",
+        }),
+      ])
+    );
+  });
 });
 
 describe("POST product without credentials", () => {
-
-
   test("should not create product without credentials", async () => {
     const product = {
       title: "test",
@@ -150,7 +165,7 @@ describe("POST product with credentials", () => {
     expect(response.body.product.title).toEqual("The Communist manifesto");
     expect(response.body.product.price).toEqual(25);
   });
-  
+
   test("no title", async () => {
     const product = {
       image:
@@ -293,15 +308,14 @@ describe("UPDATE and DELETE product", () => {
       .set("Accept", "application/json")
       .set("Authorization", "Bearer " + otherUser.token);
 
-      const response = await supertest(app)
+    const response = await supertest(app)
       .get("/api/products/" + productId)
       .set("Accept", "application/json");
 
-      expect(response.status).toEqual(200);
-    
+    expect(response.status).toEqual(200);
   });
 
-/*   test("update price only", async () => {
+  /*   test("update price only", async () => {
     const data = {
       price: 10,
     }
@@ -331,27 +345,28 @@ describe("UPDATE and DELETE product", () => {
       title: "Sgt. Peppers",
       description: "English rock",
       price: 75,
-      image: "https://classicalbumsundays.com/wp-content/uploads/2012/05/Beatles-USE_20092h.jpg",
-    }
+      image:
+        "https://classicalbumsundays.com/wp-content/uploads/2012/05/Beatles-USE_20092h.jpg",
+    };
     await supertest(app)
-    .put("/api/products/" + productId)
-    .set("Accept", "application/json")
-    .set("Authorization", "Bearer " + loggedInUser.token)
-    .send(data);
+      .put("/api/products/" + productId)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + loggedInUser.token)
+      .send(data);
 
     const response = await supertest(app)
-    .get("/api/products/" + productId)
-    .set("Accept", "application/json");
+      .get("/api/products/" + productId)
+      .set("Accept", "application/json");
     expect(response.body).toEqual(
-      expect.objectContaining({        
+      expect.objectContaining({
         title: "Sgt. Peppers",
-        image: "https://classicalbumsundays.com/wp-content/uploads/2012/05/Beatles-USE_20092h.jpg",
-        description:
-        "English rock",
+        image:
+          "https://classicalbumsundays.com/wp-content/uploads/2012/05/Beatles-USE_20092h.jpg",
+        description: "English rock",
         price: 75,
-      }))
-   
-  })
+      })
+    );
+  });
 
   test("should be able to delete own products", async () => {
     await supertest(app)
@@ -359,11 +374,11 @@ describe("UPDATE and DELETE product", () => {
       .set("Accept", "application/json")
       .set("Authorization", "Bearer " + loggedInUser.token);
 
-      const response = await supertest(app)
+    const response = await supertest(app)
       .get("/api/products/" + productId)
       .set("Accept", "application/json");
 
-    expect(response.status).toEqual(404);    
+    expect(response.status).toEqual(404);
   });
 
   afterAll(async () => {

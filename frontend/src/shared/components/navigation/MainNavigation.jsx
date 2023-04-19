@@ -6,6 +6,7 @@ import NavLinks from './NavLinks';
 import SideDrawer from './SideDrawer';
 import Backdrop from '../backdrop/Backdrop';
 import './MainNavigation.css';
+import SearchBar from '../../../products/components/SearchBar';
 
 const MainNavigation = () => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
