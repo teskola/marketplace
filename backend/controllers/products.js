@@ -1,7 +1,8 @@
 const Joi = require("joi");
 const products = require("../models/products");
 
-const schema = Joi.object({
+const schema = 
+  Joi.object({
   title: Joi.string().max(60).required(),
   description: Joi.string().optional().allow("").max(255),
   image: Joi.string()
@@ -17,37 +18,67 @@ const getProducts = async (req, res) => {
   try {
     const response = await products.findAll();
     if (response) {
-      res.send(response);
+      return res.send(response);
     }
   } catch (err) {
     console.log(err);
-    res.status(500).send("Something went wrong");
+    const response = {
+      OK: false,
+      statusCode: 500,
+      error: err,
+    };
+    return res.status(500).send(response);
   }
 };
 
 const getPriceRange = async (req, res) => {
-  try {
+    try {
     const response = await products.getPriceRange();
     if (response) {
-      res.send(response);
+      return res.send(response);
     }
   } catch (err) {
     console.log(err);
-    res.status(500).send("Something went wrong");
+    const response = {
+      OK: false,
+      statusCode: 500,
+      error: err,
+    };
+    return res.status(500).send(response);
   }
 }
 
 const searchProducts = async (req, res) => {
+  const schema = Joi.object({
+    text: Joi.string().optional().allow(""),
+    min: Joi.number().optional(),
+    max: Joi.number().optional(),
+  })
+  const { error } = schema.validate(req.query);
+  if (error) {
+    const response = {
+      OK: false,
+      statusCode: 400,
+      error: error.details[0].message,
+    };
+    return res.status(400).send(response);    
+  }
+
   try {
     const minValue = req.query.min ? parseInt(req.query.min) : null;
     const maxValue = req.query.max ? parseInt(req.query.max) : null;
     const response = await products.search(req.query.text, minValue, maxValue);
     if (response) {
-      res.send(response);
+      return res.send(response);
     }
   } catch (err) {
     console.log(err);
-    res.status(500).send(err);
+    const response = {
+      OK: false,
+      statusCode: 500,
+      error: err,
+    };
+    return res.status(500).send(response);
   }
 }
 
@@ -55,11 +86,16 @@ const getProductsByUser = async (req, res) => {
   try {
     const response = await products.findProductByUser(req.params.id);
     if (response) {
-      res.send(response);
+      return res.send(response);
     }
   } catch (err) {
     console.log(err);
-    res.status(500).send("Something went wrong");
+    const response = {
+      OK: false,
+      statusCode: 500,
+      error: err,
+    };
+    return res.status(500).send(response);
   }
 };
 
@@ -68,12 +104,22 @@ const getProductById = async (req, res) => {
     const id = parseInt(req.params.id);
     const response = await products.findProductById(id);
     if (response.length === 1) {
-      res.send(response[0]);
+      return res.send(response[0]);
     } else {
-      res.status(404).send("Product not found.");
+      const notFound = {
+        OK: false,
+        statusCode: 404,
+        error: "Product not found.",
+      }
+      return res.status(404).send(notFound);
     }
   } catch (err) {
-    res.status(500).send("Something went wrong");
+    const response = {
+      OK: false,
+      statusCode: 500,
+      error: err,
+    };
+    return res.status(500).send(response);
   }
 };
 
@@ -85,8 +131,7 @@ const editProduct = async (req, res) => {
       statusCode: 400,
       error: error.details[0].message,
     };
-    res.status(400).send(response);
-    return;
+    return res.status(400).send(response);
   }
 
   try {
@@ -105,11 +150,15 @@ const editProduct = async (req, res) => {
             statusCode: 200,
             product: product,
         } 
-      res.status(200).send(success);
-      return;
+        return res.status(200).send(success);
     }
   } catch (err) {
-    res.status(500).send("Something went wrong");
+    const response = {
+      OK: false,
+      statusCode: 500,
+      error: err,
+    };
+    return res.status(500).send(response);
   }
 };
 
@@ -122,8 +171,7 @@ const createProduct = async (req, res) => {
       statusCode: 400,
       error: error.details[0].message,
     };
-    res.status(400).send(response);
-    return;
+    return res.status(400).send(response);
   }
 
   try {
@@ -142,10 +190,15 @@ const createProduct = async (req, res) => {
         statusCode: 201,
         product: product,
       };
-      res.status(201).send(success);
+      return res.status(201).send(success);
     }
   } catch (err) {
-    res.status(500).send("Something went wrong");
+    const response = {
+      OK: false,
+      statusCode: 500,
+      error: err,
+    };
+    return res.status(500).send(response);
   }
 };
 
@@ -154,10 +207,19 @@ const deleteProduct = async (req, res) => {
     const productId = parseInt(req.params.id);
     const response = await products.deleteById(productId, req.userData.userId);
     if (response) {
-      res.status(200).json(productId);
+      return res.status(200).send({
+        OK: true,
+        statusCode: 200,
+        productId: productId,
+      });
     }
   } catch (err) {
-    res.status(500).send("Something went wrong");
+    const response = {
+      OK: false,
+      statusCode: 500,
+      error: err,
+    };
+    return res.status(500).send(response);
   }
 };
 

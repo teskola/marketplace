@@ -126,13 +126,13 @@ describe("POST product without credentials", () => {
       title: "test",
       price: 0,
     };
-    const response = supertest(app)
-      .post("api/products")
+    const response = await supertest(app)
+      .post("/api/products")
       .set("Accept", "application/json")
       .set("Content", "application/json")
       .set("Authorization", "Bearer " + "fake_token")
       .send(product);
-    await expect(response).rejects.toThrow("connect ECONNREFUSED");
+    expect(response.status).toEqual(401);
   });
 });
 

@@ -9,10 +9,16 @@ const getUserById = async (req, res) => {
   try {
     const response = await users.findById(req.params.id);
     if (response.length === 1) {
-      res.send(response[0]);
+      return res.send(response[0]);
     }
   } catch (err) {
-    res.status(500).send("Something went wrong");
+    console.log(err);
+    const response = {
+      OK: false,
+      statusCode: 500,
+      error: err,
+    };
+    return res.status(500).send(response);
   }
 }
 
@@ -32,8 +38,7 @@ if (error) {
       statusCode: 403,
       error: error.details[0].message,
     }
-    res.status(403).send(response);
-    return;
+    return res.status(403).send(response);
 }
   let hashedPassword;
   try {
@@ -94,7 +99,7 @@ if (error) {
       email: newUser.email,
       token: token,
     }
-    res.status(201).send(response);
+    return res.status(201).send(response);
 
   } catch (err) {
     const response = {
@@ -122,7 +127,13 @@ const loginUser = async (req, res) => {
     }
     identifiedUser = result[0];
   } catch (err) {
-    return res.status(500).send('Something went wrong');
+    console.log(err);
+    const response = {
+      OK: false,
+      statusCode: 500,
+      error: err,
+    };
+    return res.status(500).send(response);    
   }
 
   let isValidPassword;
@@ -137,7 +148,13 @@ const loginUser = async (req, res) => {
       return res.status(401).send(response);
     }
   } catch (err) {
-    return res.status(500).send('Something went wrong');
+    console.log(err);
+    const response = {
+      OK: false,
+      statusCode: 500,
+      error: err,
+    };
+    return res.status(500).send(response);
   }
 
   try {
@@ -150,7 +167,7 @@ const loginUser = async (req, res) => {
       { expiresIn: '1h' }
     );
 
-    res.status(201).json({
+    return res.status(201).json({
       OK: true,
       statusCode: 200,
       id: identifiedUser.id,
@@ -160,13 +177,17 @@ const loginUser = async (req, res) => {
       token: token,
     })
   } catch (err) {
-    return res.status(500).send('Something went wrong');
+    console.log(err);
+    const response = {
+      OK: false,
+      statusCode: 500,
+      error: err,
+    };
+    return res.status(500).send(response);
   }
 
 
 };
-
-
 
 module.exports = {
   loginUser,
