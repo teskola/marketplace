@@ -32,7 +32,7 @@ const Authenticate = () => {
     onSuccess: (data) => {
       setIsLoading(false);
       if (data.OK) {
-        auth.login(data.id, data.name, data.email, data.phone, data.token);
+        auth.login(data.user, data.token);
         console.log(data);
       } else {
         setError(data.error);
@@ -45,7 +45,7 @@ const Authenticate = () => {
     onSuccess: (data) => {
       setIsLoading(false);
       if (data.OK) {
-        auth.login(data.id, data.name, data.email, data.phone, data.token);
+        auth.login(data.user, data.token);
         console.log(data);
       } else {
         setError(data.error);

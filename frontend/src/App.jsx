@@ -19,13 +19,7 @@ function App() {
   const [tokenExpirationDate, setTokenExpirationDate] = useState(false);
 
   const login = useCallback(
-    (uid, name, email, phone, token, expirationDate) => {
-      const user = {
-        uid: uid,
-        name: name,
-        email: email,
-        phone: phone,
-      };
+    (user, token, expirationDate) => {      
       setToken(token);
       setUser(user);
       history.push("/");
@@ -60,10 +54,7 @@ function App() {
       new Date(storedData.expiration) > new Date() //if greater, the expiration is in the future
     ) {
       login(
-        storedData.user.uid,
-        storedData.user.name,
-        storedData.user.email,
-        storedData.user.phone,
+        storedData.user,
         storedData.token,
         new Date(storedData.expiration)
       );
@@ -85,7 +76,7 @@ function App() {
       value={{
         isLoggedIn: !!token,
         token: token,
-        userId: user && user.uid,
+        userId: user && user.id,
         login: login,
         logout: logout,
       }}

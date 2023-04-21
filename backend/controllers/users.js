@@ -93,10 +93,12 @@ if (error) {
     const response = {
       OK: true,
       statusCode: 201,
-      id: newUser.id,
-      name: newUser.name,
-      phone: newUser.phone,
-      email: newUser.email,
+      user: {
+        id: newUser.id,
+        name: newUser.name,
+        phone: newUser.phone,
+        email: newUser.email,
+      },
       token: token,
     }
     return res.status(201).send(response);
@@ -170,10 +172,12 @@ const loginUser = async (req, res) => {
     return res.status(201).json({
       OK: true,
       statusCode: 200,
-      id: identifiedUser.id,
-      name: identifiedUser.name,
-      email: identifiedUser.email,
-      phone: identifiedUser.phone,
+      user: {
+        id: identifiedUser.id,
+        name: identifiedUser.name,
+        email: identifiedUser.email,
+        phone: identifiedUser.phone,
+      },
       token: token,
     })
   } catch (err) {

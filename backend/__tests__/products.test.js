@@ -156,8 +156,8 @@ describe("POST product with credentials", () => {
       .set("Accept", "application/json")
       .set("Content", "application/json")
       .send(karl);
-    loggedInUser.id = response.body.id;
-    loggedInUser.email = response.body.email;
+    loggedInUser.id = response.body.user.id;
+    loggedInUser.email = response.body.user.email;
     loggedInUser.token = response.body.token;
   });
 
@@ -283,8 +283,8 @@ describe("UPDATE and DELETE product", () => {
       .set("Accept", "application/json")
       .set("Content", "application/json")
       .send(george);
-    otherUser.id = response.body.id;
-    otherUser.email = response.body.email;
+    otherUser.id = response.body.user.id;
+    otherUser.email = response.body.user.email;
     otherUser.token = response.body.token;
 
     const john = {
@@ -298,8 +298,8 @@ describe("UPDATE and DELETE product", () => {
       .set("Accept", "application/json")
       .set("Content", "application/json")
       .send(john);
-    loggedInUser.id = res.body.id;
-    loggedInUser.email = res.body.email;
+    loggedInUser.id = res.body.user.id;
+    loggedInUser.email = res.body.user.email;
     loggedInUser.token = res.body.token;
 
     const product = {
@@ -338,30 +338,6 @@ describe("UPDATE and DELETE product", () => {
     expect(response.status).toEqual(200);
   });
 
-  /*   test("update price only", async () => {
-    const data = {
-      price: 10,
-    }
-    await supertest(app)
-    .put("/api/products/" + productId)
-    .set("Accept", "application/json")
-    .set("Authorization", "Bearer " + loggedInUser.token)
-    .send(data);
-    
-    const response = await supertest(app)
-    .get("/api/products/" + productId)
-    .set("Accept", "application/json");
-    expect(response.body).toEqual(
-      expect.objectContaining({        
-        title: "Sgt. Peppers Lonely Hearts Club Band",
-        image: "https://i.discogs.com/JNbAKGFjLM_LrPZVRlNtWlYTgpUwXTZcqbC5okuCP-M/rs:fit/g:sm/q:90/h:590/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTQ5OTQ5/Ny0xNDU2MDQ3Mzgz/LTk0ODkuanBlZw.jpeg",
-        description:
-        "Sgt. Pepper's Lonely Hearts Club Band is the eighth studio album by the English rock band the Beatles.",
-        price: 10,
-      })
-    );
-
-  }) */
 
   test("update all fields", async () => {
     const data = {

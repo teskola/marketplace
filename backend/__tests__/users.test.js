@@ -58,8 +58,9 @@ describe('SIGNUP users endpoint', () => {
   
         expect(response.status).toEqual(201);
         expect(response.headers['content-type']).toMatch(/json/);
-        expect(response.body.id).toBeTruthy();
-        expect(response.body.email).toBeTruthy();
+        expect(response.body.user.id).toBeTruthy();
+        expect(response.body.user.email).toEqual('tony@stark.com');
+        expect(response.body.user.phone).toEqual('050123123');
         expect(response.body.token).toBeTruthy();
     }); 
 
@@ -123,8 +124,8 @@ describe('SIGNUP users endpoint', () => {
   
         expect(response.status).toEqual(201);
         expect(response.headers['content-type']).toMatch(/json/);
-        expect(response.body.id).toBeTruthy();
-        expect(response.body.email).toBeTruthy();
+        expect(response.body.user.id).toBeTruthy();
+        expect(response.body.user.email).toEqual('tony@stark.com')
         expect(response.body.token).toBeTruthy();
     }); 
     
