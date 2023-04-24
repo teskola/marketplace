@@ -23,7 +23,7 @@ const ProductsList = (props) => {
             price={product.price}
             seller={product.seller}      
             onDeleteClicked={props.update}   
-            created={product.created}  // Remove Z from timestamp incorrectly indicating UTC-time 
+            created={product.created}
              />
           </Grid>
         ))}
